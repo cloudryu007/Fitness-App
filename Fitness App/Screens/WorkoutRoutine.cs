@@ -40,6 +40,8 @@ namespace Fitness_App.Screens
                     setUserData();
                 }
             }
+
+            workoutGrid.ClearSelection();
         }
 
         public void setUserData()

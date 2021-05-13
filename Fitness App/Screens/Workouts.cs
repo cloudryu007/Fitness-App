@@ -22,6 +22,7 @@ namespace Fitness_App.Screens
             addDummy(exercisePanel);
         }
 
+        //on screen load
         private void Workouts_Load(object sender, EventArgs e)
         {
             routineCB.Items.Add("Select Routine");
@@ -84,6 +85,16 @@ namespace Fitness_App.Screens
                     Refresh();
                 }
             }
+
+            else
+            {
+                //deselect cb, reset content
+                exercisePanel.Controls.Clear();
+                addDummy(exercisePanel);
+                titlePanel.Select();
+                Reset();
+                Refresh();
+            }
         }
 
         //event to display exercises for user
@@ -104,6 +115,7 @@ namespace Fitness_App.Screens
 
                 //now show the user
                 dataPanel.Visible = true;
+                workoutGrid.ClearSelection();
             }
         }
 
