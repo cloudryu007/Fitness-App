@@ -49,6 +49,7 @@
             this.headerBorder = new System.Windows.Forms.Panel();
             this.exercisePanel = new System.Windows.Forms.FlowLayoutPanel();
             this.centerPanel = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.dataPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.workoutGrid)).BeginInit();
             this.titlePanel.SuspendLayout();
@@ -127,7 +128,7 @@
             this.workoutGrid.Location = new System.Drawing.Point(3, 54);
             this.workoutGrid.Name = "workoutGrid";
             this.workoutGrid.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
@@ -135,6 +136,7 @@
             dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.workoutGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
             dataGridViewCellStyle8.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.ActiveCaption;
@@ -200,30 +202,32 @@
             // 
             // titlePanel
             // 
-            this.titlePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(39)))), ((int)(((byte)(77)))));
+            this.titlePanel.BackColor = System.Drawing.Color.White;
             this.titlePanel.ColumnCount = 1;
-            this.titlePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.titlePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.titlePanel.Controls.Add(this.panel1, 0, 1);
             this.titlePanel.Controls.Add(this.routineCB, 0, 0);
             this.titlePanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.titlePanel.Location = new System.Drawing.Point(0, 0);
             this.titlePanel.Name = "titlePanel";
-            this.titlePanel.RowCount = 1;
-            this.titlePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.titlePanel.RowCount = 2;
+            this.titlePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 87.30159F));
+            this.titlePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.69841F));
             this.titlePanel.Size = new System.Drawing.Size(636, 63);
             this.titlePanel.TabIndex = 14;
             // 
             // routineCB
             // 
             this.routineCB.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.routineCB.BackColor = System.Drawing.Color.White;
+            this.routineCB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(39)))), ((int)(((byte)(77)))));
             this.routineCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.routineCB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.routineCB.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.routineCB.ForeColor = System.Drawing.Color.Black;
+            this.routineCB.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.routineCB.ForeColor = System.Drawing.Color.White;
             this.routineCB.FormattingEnabled = true;
-            this.routineCB.Location = new System.Drawing.Point(158, 20);
+            this.routineCB.Location = new System.Drawing.Point(218, 16);
             this.routineCB.Name = "routineCB";
-            this.routineCB.Size = new System.Drawing.Size(319, 23);
+            this.routineCB.Size = new System.Drawing.Size(200, 23);
             this.routineCB.TabIndex = 5;
             this.routineCB.SelectedIndexChanged += new System.EventHandler(this.routineCB_SelectedIndexChanged);
             // 
@@ -253,6 +257,15 @@
             this.centerPanel.Name = "centerPanel";
             this.centerPanel.Size = new System.Drawing.Size(636, 476);
             this.centerPanel.TabIndex = 16;
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(39)))), ((int)(((byte)(77)))));
+            this.panel1.Location = new System.Drawing.Point(3, 58);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(630, 2);
+            this.panel1.TabIndex = 6;
             // 
             // Workouts
             // 
@@ -290,5 +303,6 @@
         private System.Windows.Forms.Panel headerBorder;
         private System.Windows.Forms.FlowLayoutPanel exercisePanel;
         private System.Windows.Forms.Panel centerPanel;
+        private System.Windows.Forms.Panel panel1;
     }
 }

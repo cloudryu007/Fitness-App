@@ -24,6 +24,7 @@ namespace Fitness_App.Screens
 
         private void Workouts_Load(object sender, EventArgs e)
         {
+            routineCB.Items.Add("Select Routine");
             foreach(var item in Common.userWorkouts)
             {
                 routineCB.Items.Add(item.routine);
@@ -38,12 +39,13 @@ namespace Fitness_App.Screens
             dataBorder.Dock = DockStyle.Left;
             centerPanel.Controls.Add(dataBorder);
             dataPanel.Visible = false;
+            routineCB.SelectedIndex = 0;
         }
 
         //user selected workout event handler
         private void routineCB_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (routineCB.SelectedIndex > -1)
+            if (routineCB.SelectedIndex > -1 && routineCB.SelectedIndex > 0)
             {
                 if(exercisePanel.Controls.Count > 1)
                 {
@@ -76,6 +78,10 @@ namespace Fitness_App.Screens
                             gweight = workout.weight
                         });
                     }
+
+                    //deselect cb
+                    titlePanel.Select();
+                    Refresh();
                 }
             }
         }
