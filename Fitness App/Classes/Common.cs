@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+using static Fitness_App.Screens.Workouts;
 
 namespace Fitness_App
 {
@@ -16,7 +17,7 @@ namespace Fitness_App
     class Common
     {
         //users data
-        public static string iduser = null;
+        public static string userID = null;
         public static string userName = null;
         public static string userPassword = null;
         public static string firstName = null;
@@ -40,14 +41,10 @@ namespace Fitness_App
         public static string weight = null;
         public static List<UserWorkout> userWorkouts = new List<UserWorkout>();
         public static List<UserWorkout> currentWorkouts = new List<UserWorkout>();
+        public static List<PreviousWorkouts> previousWorkouts = new List<PreviousWorkouts>();
         public static bool initalize = true;
         public static bool offline = false;
         public static bool doubleBuffer;
-
-        //encrypt & decrypt
-        public static string encryptPass = "AFall!(()!*";
-        [DllImport("KERNEL32.DLL", EntryPoint = "RtlZeroMemory")]
-        public static extern bool ZeroMemory(IntPtr Destination, int Length);
 
         //sample routine/workouts
         public static List<string> sampleRoutine = new List<string>();

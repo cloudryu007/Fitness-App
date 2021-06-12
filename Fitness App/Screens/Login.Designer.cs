@@ -201,7 +201,6 @@
             this.loginBtn.ForeColor = System.Drawing.Color.White;
             this.loginBtn.Location = new System.Drawing.Point(137, 221);
             this.loginBtn.Name = "loginBtn";
-            this.loginBtn.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.loginBtn.Size = new System.Drawing.Size(248, 34);
             this.loginBtn.TabIndex = 6;
             this.loginBtn.Text = "LOGIN";

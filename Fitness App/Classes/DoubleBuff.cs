@@ -9,6 +9,8 @@ namespace Fitness_App.Classes
 {
     class DoubleBuff
     {
+        //allow a screen to user double buff (reduce flickering on load)
+        //don't allow this process when RDP'd as this will affect preformance heavily
         public bool doubleBuffer()
         {
             bool buffer = false;

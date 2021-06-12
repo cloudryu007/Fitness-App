@@ -30,6 +30,7 @@ namespace Fitness_App.Screens
             addRoutineBtn.Click += createRoutine;
         }
 
+        //setup user data on UI
         private void Init()
         {
             addDummy(routineLayout);
@@ -56,6 +57,13 @@ namespace Fitness_App.Screens
                     foreach (var exercise in workout)
                     {
                         newWorkoutObj(exercise.exerciseName, exercise);
+                        if(exercise.supersets.Count > 0)
+                        {
+                            foreach(var superset in exercise.supersets)
+                            {
+                                addSuperset(routineName, exercise.exerciseName, superset.supersetName, superset);
+                            }
+                        }
                     }
                 }
             }
@@ -81,6 +89,7 @@ namespace Fitness_App.Screens
             createRoutineObj(add.userInput);
         }
 
+        //create new routine button etc...
         private void createRoutineObj(string name)
         {
             string rName = name;
@@ -139,7 +148,7 @@ namespace Fitness_App.Screens
             deleteRoutine.FlatStyle = FlatStyle.Flat;
             deleteRoutine.Click += delete;
 
-            //create button
+            //add workout button
             Button addWorkoutBtn = new Button();
             addWorkoutBtn.Name = "addWorkoutBtn_" + rName;
             addWorkoutBtn.Text = "Add Workout";
@@ -149,10 +158,21 @@ namespace Fitness_App.Screens
             addWorkoutBtn.FlatStyle = FlatStyle.Flat;
             addWorkoutBtn.Click += newWorkout;
 
+            //add superset button
+            Button supersetBtn = new Button();
+            supersetBtn.Name = "supersetBtn_" + rName;
+            supersetBtn.Text = "Add Superset";
+            supersetBtn.Size = new Size(105, 25);
+            supersetBtn.ForeColor = Color.White;
+            supersetBtn.BackColor = Color.FromArgb(37, 39, 77);
+            supersetBtn.FlatStyle = FlatStyle.Flat;
+            supersetBtn.Click += newWorkout;
+
             //add controls to table layout panel, then add table layout panel to flow layout panel
             flowTable.Controls.Add(routineName, 0, 0);
             flowTable.Controls.Add(addWorkoutBtn, 1, 0);
             flowTable.Controls.Add(deleteRoutine, 1, 1);
+            flowTable.Controls.Add(supersetBtn, 2, 0);
             flow.Controls.Add(flowTable);
 
             //keep list of routines to select on the fly
@@ -162,8 +182,132 @@ namespace Fitness_App.Screens
         //display the user request routine 
         private void displayRoutine(object sender, EventArgs e)
         {
-            string name = ((Control)sender).Name;
-            displayRoutineObj(name);
+            FlowLayoutPanel main = null;
+            string name = ((Control)sender).Name.Split('_').Last();
+            string routineName = null;
+            foreach (FlowLayoutPanel f in dataPanel.Controls.OfType<FlowLayoutPanel>())
+            {
+                if (f.Name.Contains("flow_"))
+                {
+                    main = f;
+                    routineName = f.Name.Split('_').Last();
+                    break;
+                }
+            }
+
+            if(main != null)
+            {
+                if(name == routineName)
+                {
+                    return;
+                }
+
+                bool incomplete = false; string msg = null;
+                foreach (var control in main.Controls)
+                {
+                    if(control is WorkoutRoutine)
+                    {
+                        var temp = control as WorkoutRoutine;
+                        int find = Common.userWorkouts.FindIndex(x => x.routine == temp.routineName);
+                        if(find > -1)
+                        {
+                            int pos = Common.userWorkouts[find].workout.FindIndex(x => x.exerciseName == temp.exerciseName);
+                            if(pos > -1)
+                            {
+                                var toCheck = Common.userWorkouts[find].workout[pos];
+                                if (toCheck.sets > 0)
+                                {
+                                    //for(int i = 0; i < toCheck.sets; i++)
+                                    //{
+                                    //    if(toCheck.reps[i] == 0)
+                                    //    {
+                                    //        msg = temp.routineName + ", " + temp.exerciseName + " - Set " + (i + 1) + " Reps does not have a value set, please correct this";
+                                    //        incomplete = true;
+                                    //        break;
+                                    //    }
+
+                                    //    if(toCheck.weight[i] == 0)
+                                    //    {
+                                    //        msg = temp.routineName + ", " + temp.exerciseName + " - Set " + (i + 1) + " Weight does not have a value set, please correct this";
+                                    //        incomplete = true;
+                                    //        break;
+                                    //    }
+                                    //}
+
+                                    //if (incomplete)
+                                    //{
+                                    //    break;
+                                    //}                                    
+                                }
+
+                                else
+                                {
+                                    msg = temp.routineName + " - " + temp.exerciseName + " needs to have a number of sets selected, please correct this";
+                                    incomplete = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    else if (control is Superset) 
+                    {
+                        var temp = control as Superset;
+                        int find = Common.userWorkouts.FindIndex(x => x.routine == temp.routineName);
+                        if (find > -1)
+                        {
+                            int pos = Common.userWorkouts[find].workout.FindIndex(x => x.exerciseName == temp.exerciseName);
+                            if (pos > -1)
+                            {
+                                int point = Common.userWorkouts[find].workout[pos].supersets.FindIndex(x => x.supersetName == temp.superSetName);
+                                if (point > -1)
+                                {
+                                    var toCheck = Common.userWorkouts[find].workout[pos].supersets[point];
+                                    if (toCheck.sets > 0)
+                                    {
+                                        //for (int i = 0; i < toCheck.sets; i++)
+                                        //{
+                                        //    if (toCheck.reps[i] == 0)
+                                        //    {
+                                        //        msg = temp.routineName + ", " + temp.exerciseName + " - Set " + (i + 1) + " Reps does not have a value set, please correct this";
+                                        //        incomplete = true;
+                                        //        break;
+                                        //    }
+
+                                        //    if (toCheck.weight[i] == 0)
+                                        //    {
+                                        //        msg = temp.routineName + ", " + temp.exerciseName + " - Set " + (i + 1) + " Weight does not have a value set, please correct this";
+                                        //        incomplete = true;
+                                        //        break;
+                                        //    }
+                                        //}
+
+                                        //if (incomplete)
+                                        //{
+                                        //    break;
+                                        //}
+                                    }
+
+                                    else
+                                    {
+                                        msg = temp.routineName + " - " + temp.exerciseName + " needs to have a number of sets selected, please correct this";
+                                        incomplete = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (incomplete)
+                {
+                    MessageBox.Show(msg, "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
+            }
+
+            displayRoutineObj(((Control)sender).Name);
         }
 
         private void displayRoutineObj(string routineName)
@@ -209,15 +353,98 @@ namespace Fitness_App.Screens
                 }
             }
 
-            InputDialog add = new InputDialog();
-            add.setPlaceHolderText = "Enter Workout name, i.e. Incline Bench or Barbell Row";
-            add.setDialogTitle = "New Workout";
-            add.isWorkout = true;
-            add.routineName = routineName;
-            add.ShowDialog();
+            //if sender is superset handle
+            string btn = ((Button)sender).Name;
+            if (btn == "supersetBtn_" + routineName)
+            {
+                SelectExercise selectExercise = new SelectExercise();
+                selectExercise.routineName = routineName;
+                selectExercise.ShowDialog(this);
+                if (!string.IsNullOrEmpty(selectExercise.supersetName))
+                {
+                    addSuperset(selectExercise.routineName, selectExercise.exerciseName, selectExercise.supersetName, null);
+                    return;
+                }
+            }
 
-            if (string.IsNullOrEmpty(add.userInput)) { return; }
-            newWorkoutObj(add.userInput, null);
+            //if sender is exercise handle
+            else
+            {
+                InputDialog add = new InputDialog();
+                add.setPlaceHolderText = "Enter Workout name, i.e. Incline Bench or Barbell Row";
+                add.setDialogTitle = "New Workout";
+                add.isWorkout = true;
+                add.routineName = routineName;
+                add.ShowDialog();
+
+                if (string.IsNullOrEmpty(add.userInput)) { return; }
+                newWorkoutObj(add.userInput, null);
+            }
+        }
+
+        //create superset object
+        private void addSuperset(string routineName, string exerciseName, string supersetName, Classes.Superset Superset)
+        {
+            FlowLayoutPanel main = null;
+            foreach (FlowLayoutPanel f in dataPanel.Controls.OfType<FlowLayoutPanel>())
+            {
+                if (f.Name.Contains("flow_"))
+                {
+                    main = f;
+                    break;
+                }
+            }
+
+            int cnt = 0;
+            foreach(Control c in main.Controls)
+            {
+                if (c is WorkoutRoutine)
+                {
+                    var temp = c as WorkoutRoutine;
+                    if (temp.exerciseName == exerciseName)
+                    {
+                        //new superset
+                        if (Superset == null)
+                        {
+                            Superset superset = new Superset();
+                            superset.TopLevel = false;
+                            superset.exerciseName = exerciseName;
+                            superset.routineName = routineName;
+                            superset.superSetName = supersetName;
+                            superset.FormBorderStyle = FormBorderStyle.None;
+                            superset.Dock = DockStyle.Fill;
+                            superset.Padding = new Padding(25, 0, 0, 0);
+                            main.Controls.Add(superset);
+                            main.Controls.SetChildIndex(superset, cnt + 1);//insert child control before main control
+                            superset.Show();
+                            break;
+                        }
+
+                        //load previous superset
+                        else
+                        {
+                            Superset superset = new Superset();
+                            superset.TopLevel = false;
+                            superset.exerciseName = exerciseName;
+                            superset.routineName = routineName;
+                            superset.superSetName = Superset.supersetName;
+                            superset.setData = true;
+                            superset.setSets = Superset.sets;
+                            superset.setReps = Superset.reps;
+                            superset.setWeight = Superset.weight;
+                            superset.FormBorderStyle = FormBorderStyle.None;
+                            superset.Dock = DockStyle.Fill;
+                            superset.Padding = new Padding(25, 0, 0, 0);
+                            main.Controls.Add(superset);
+                            main.Controls.SetChildIndex(superset, cnt + 1);//insert child control before main control
+                            superset.Show();
+                            break;
+                        }
+                    }
+                }
+
+                cnt++;
+            }
         }
 
         //create new workout
@@ -240,10 +467,11 @@ namespace Fitness_App.Screens
                 string wName = name;
                 WorkoutRoutine workout = new WorkoutRoutine();
                 workout.TopLevel = false;
-                workout.workoutName = wName;
+                workout.exerciseName = wName;
                 workout.routineName = routineName;
                 workout.FormBorderStyle = FormBorderStyle.None;
                 workout.Dock = DockStyle.Fill;
+                workout.Padding = new Padding(20, 0, 0, 0);
                 main.Controls.Add(workout);
                 workout.Show();
             }
@@ -253,7 +481,7 @@ namespace Fitness_App.Screens
                 string wName = name;
                 WorkoutRoutine workout = new WorkoutRoutine();
                 workout.TopLevel = false;
-                workout.workoutName = wName;
+                workout.exerciseName = wName;
                 workout.routineName = routineName;
                 workout.setData = true;
                 workout.setSets = exercise.sets;
@@ -261,6 +489,7 @@ namespace Fitness_App.Screens
                 workout.setWeight = exercise.weight;
                 workout.FormBorderStyle = FormBorderStyle.None;
                 workout.Dock = DockStyle.Fill;
+                workout.Padding = new Padding(20, 0, 0, 0);
                 main.Controls.Add(workout);
                 workout.Show();
             }
@@ -413,16 +642,6 @@ namespace Fitness_App.Screens
             if (size.Width == 0) { size.Width = 150; }
             txt.ClientSize = new Size(size.Width + x_margin, size.Height + y_margin);
             txt.SelectionStart = 0;
-        }
-
-        private void AdjustWhileTyping(object sender, EventArgs e)
-        {
-            TextBox txt = sender as TextBox;
-            const int x_margin = 0;
-            const int y_margin = 10;
-            Size size = TextRenderer.MeasureText(txt.Text, txt.Font);
-            if (size.Width == 0) { size.Width = 150; }
-            txt.ClientSize = new Size(size.Width + x_margin, size.Height + y_margin);
         }
 
         //delete routine

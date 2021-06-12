@@ -1,6 +1,6 @@
 ﻿namespace Fitness_App.Screens
 {
-    partial class WorkoutRoutine
+    partial class Superset
     {
         /// <summary>
         /// Required designer variable.
@@ -48,6 +48,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.deleteBtn = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.supersetLbl = new System.Windows.Forms.Label();
             this.nameTB = new System.Windows.Forms.TextBox();
             this.mainPanel.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -66,8 +67,8 @@
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 0);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(667, 169);
-            this.mainPanel.TabIndex = 0;
+            this.mainPanel.Size = new System.Drawing.Size(667, 144);
+            this.mainPanel.TabIndex = 1;
             // 
             // tableLayoutPanel2
             // 
@@ -81,7 +82,7 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(665, 140);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(665, 115);
             this.tableLayoutPanel2.TabIndex = 3;
             // 
             // panel2
@@ -91,7 +92,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(151, 134);
+            this.panel2.Size = new System.Drawing.Size(151, 109);
             this.panel2.TabIndex = 0;
             // 
             // setsCB
@@ -196,7 +197,7 @@
             this.workoutGrid.RowsDefaultCellStyle = dataGridViewCellStyle8;
             this.workoutGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.workoutGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.workoutGrid.Size = new System.Drawing.Size(502, 134);
+            this.workoutGrid.Size = new System.Drawing.Size(502, 109);
             this.workoutGrid.TabIndex = 2;
             this.workoutGrid.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.workoutGrid_CellFormatting);
             this.workoutGrid.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.workoutGrid_CellPainting);
@@ -268,12 +269,28 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.supersetLbl);
             this.panel3.Controls.Add(this.nameTB);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(665, 27);
             this.panel3.TabIndex = 9;
+            // 
+            // supersetLbl
+            // 
+            this.supersetLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.supersetLbl.AutoSize = true;
+            this.supersetLbl.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.supersetLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(39)))), ((int)(((byte)(77)))));
+            this.supersetLbl.Location = new System.Drawing.Point(3, 2);
+            this.supersetLbl.Margin = new System.Windows.Forms.Padding(3, 1, 3, 0);
+            this.supersetLbl.Name = "supersetLbl";
+            this.supersetLbl.Size = new System.Drawing.Size(22, 17);
+            this.supersetLbl.TabIndex = 8;
+            this.supersetLbl.Text = "SS";
             // 
             // nameTB
             // 
@@ -290,22 +307,19 @@
             this.nameTB.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.nameTB_KeyPress);
             this.nameTB.Leave += new System.EventHandler(this.nameTB_Leave);
             // 
-            // WorkoutRoutine
+            // Superset
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoScroll = true;
-            this.AutoSize = true;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(667, 169);
+            this.ClientSize = new System.Drawing.Size(667, 144);
             this.Controls.Add(this.mainPanel);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "WorkoutRoutine";
-            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "WorkoutRoutine";
-            this.Load += new System.EventHandler(this.WorkoutRoutine_Load);
+            this.Name = "Superset";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Superset";
+            this.Load += new System.EventHandler(this.Superset_Load);
             this.mainPanel.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
@@ -320,19 +334,19 @@
         }
 
         #endregion
-
         private System.Windows.Forms.Panel mainPanel;
-        private System.Windows.Forms.TextBox nameTB;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Label deleteBtn;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.ComboBox setsCB;
+        private System.Windows.Forms.Label setsLbl;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label deleteBtn;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.TextBox nameTB;
         private System.Windows.Forms.DataGridView workoutGrid;
         private System.Windows.Forms.DataGridViewTextBoxColumn setColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn repColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn weightColumn;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.ComboBox setsCB;
-        private System.Windows.Forms.Label setsLbl;
-        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label supersetLbl;
     }
 }

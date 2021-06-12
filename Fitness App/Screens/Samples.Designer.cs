@@ -55,7 +55,6 @@
             this.okBtn.ForeColor = System.Drawing.Color.White;
             this.okBtn.Location = new System.Drawing.Point(69, 70);
             this.okBtn.Name = "okBtn";
-            this.okBtn.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.okBtn.Size = new System.Drawing.Size(96, 23);
             this.okBtn.TabIndex = 10;
             this.okBtn.Text = "OK";
@@ -72,7 +71,6 @@
             this.exitBtn.ForeColor = System.Drawing.Color.White;
             this.exitBtn.Location = new System.Drawing.Point(199, 70);
             this.exitBtn.Name = "exitBtn";
-            this.exitBtn.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.exitBtn.Size = new System.Drawing.Size(96, 23);
             this.exitBtn.TabIndex = 11;
             this.exitBtn.Text = "EXIT";
@@ -81,13 +79,15 @@
             // 
             // sampleCB
             // 
+            this.sampleCB.BackColor = System.Drawing.Color.Gainsboro;
             this.sampleCB.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.sampleCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.sampleCB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sampleCB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.sampleCB.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sampleCB.FormattingEnabled = true;
             this.sampleCB.Location = new System.Drawing.Point(14, 28);
             this.sampleCB.Name = "sampleCB";
-            this.sampleCB.Size = new System.Drawing.Size(340, 23);
+            this.sampleCB.Size = new System.Drawing.Size(340, 26);
             this.sampleCB.TabIndex = 12;
             this.sampleCB.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.sampleCB_DrawItem);
             this.sampleCB.SelectedIndexChanged += new System.EventHandler(this.sampleCB_SelectedIndexChanged);

@@ -35,7 +35,7 @@ namespace Fitness_App.Classes
                 if (login.Read())
                 {
                     //get the users information from the table
-                    Common.iduser = login[(int)UserColumns.iduser].ToString();
+                    Common.userID = login[(int)UserColumns.iduser].ToString();
                     Common.userName = login[(int)UserColumns.userName].ToString();
                     Common.userPassword = login[(int)UserColumns.userPassword].ToString();
                     Common.firstName = login[(int)UserColumns.firstName].ToString();

@@ -20,9 +20,14 @@ namespace Fitness_App.Classes
         string wsample = "Sample_Workout.xml";
         string user = "user.xml";
 
+        //local vars for parsing offline profile.xml
+        string RoutineName = null;
+        string ExerciseName = null;
+        string SupersetName = null;
+
+        //create offline data on users info
         public void offline()
         {
-            Common.offline = true;
             if (!Directory.Exists(dir))
             {
                 try
@@ -65,6 +70,22 @@ namespace Fitness_App.Classes
                             writer.WriteElementString("Sets", exercise.sets.ToString());
                             writer.WriteElementString("Reps", reps = getValue(exercise.reps));
                             writer.WriteElementString("Weight", weights = getValue(exercise.weight));
+
+                            //look for superset related info
+                            if(exercise.supersets.Count > 0)
+                            {
+                                foreach(var superset in exercise.supersets)
+                                {
+                                    reps = null; weights = null;
+                                    writer.WriteStartElement("Superset");
+                                    writer.WriteElementString("SupersetName", superset.supersetName);
+                                    writer.WriteElementString("SupersetSets", superset.sets.ToString());
+                                    writer.WriteElementString("SupersetReps", reps = getValue(superset.reps));
+                                    writer.WriteElementString("SupersetWeight", weights = getValue(superset.weight));
+                                    writer.WriteEndElement();
+                                }
+                            }
+
                             writer.WriteEndElement();
                         }
 
@@ -163,7 +184,7 @@ namespace Fitness_App.Classes
 
                     writer.WriteStartElement("User");
                     writer.WriteAttributeString("offlinemode", Common.offline.ToString());//signify if we didn't actually update the DB
-                    writer.WriteElementString("iduser", Common.iduser);
+                    writer.WriteElementString("iduser", Common.userID);
                     writer.WriteElementString("firstName", Common.firstName);
                     writer.WriteElementString("lastName", Common.lastName);
                     writer.WriteElementString("city", Common.city);
@@ -190,20 +211,19 @@ namespace Fitness_App.Classes
             if (File.Exists(dir + @"\" + user))
             {
                 XmlDocument doc = new XmlDocument(); doc.Load(dir + @"\" + user);
-                XmlNodeList nodes = doc.DocumentElement.SelectNodes("User");
                 XmlElement root = doc.DocumentElement;
 
                 try
                 {
                     string offline = root.GetAttribute("offlinemode");
-                    if (offline != null && offline == "True")
+                    if (offline != null && offline == "True" || Common.offline)
                     {
-                        foreach (XmlNode node in nodes)
+                        foreach (XmlNode node in root)
                         {
-                            switch (node.OuterXml)
+                            switch (node.Name)
                             {
                                 case "iduser":
-                                    Common.iduser = node.InnerText;
+                                    Common.userID = node.InnerText;
                                     break;
                                 case "firstName":
                                     Common.firstName = node.InnerText;
@@ -231,62 +251,24 @@ namespace Fitness_App.Classes
                         if (File.Exists(dir + @"\" + file))
                         {
                             doc = new XmlDocument(); doc.Load(dir + @"\" + file);
-                            nodes = doc.DocumentElement.SelectNodes("Routine");
+                            XmlNodeList nodes = doc.DocumentElement.SelectNodes("Routine");
                             foreach (XmlNode node in nodes)
                             {
                                 bool add = false;
-                                string routineName = null;
-                                string exerciseName = null;
-
                                 foreach (XmlNode child in node.ChildNodes)
                                 {
                                     if (child.Name == "RoutineName")
                                     {
                                         AddRemoveRoutine addRt = new AddRemoveRoutine();
                                         add = addRt.AddRoutine(child.InnerText);
-                                        routineName = child.InnerText;
+                                        RoutineName = child.InnerText;
                                     }
 
                                     else
                                     {
                                         foreach (XmlNode sub in child.ChildNodes)
                                         {
-                                            switch (sub.Name)
-                                            {
-                                                case "ExerciseName":
-                                                    AddRemoveexercise addEx = new AddRemoveexercise();
-                                                    add = addEx.Addexercise(sub.InnerText, routineName);
-                                                    exerciseName = sub.InnerText;
-                                                    break;
-
-                                                case "Sets":
-                                                    AddRemoveexercise addSets = new AddRemoveexercise();
-                                                    add = addSets.UpdateSet(int.Parse(sub.InnerText), routineName, exerciseName);
-                                                    break;
-
-                                                case "Reps":
-                                                    List<string> reps = sub.InnerText.Split(',').ToList();
-                                                    for (int i = 0; i < reps.Count; i++)
-                                                    {
-                                                        int r = int.Parse(reps[i]);
-                                                        AddRemoveexercise addReps = new AddRemoveexercise();
-                                                        add = addReps.UpdateReps(r, routineName, exerciseName, i);
-                                                    }
-                                                    break;
-
-                                                case "Weight":
-                                                    List<string> weights = sub.InnerText.Split(',').ToList();
-                                                    for (int i = 0; i < weights.Count; i++)
-                                                    {
-                                                        int w = int.Parse(weights[i]);
-                                                        AddRemoveexercise addWeight = new AddRemoveexercise();
-                                                        add = addWeight.UpdateWeight(w, routineName, exerciseName, i);
-                                                    }
-                                                    break;
-
-                                                default:
-                                                    continue;
-                                            }
+                                            add = processNode(sub, RoutineName, ExerciseName, SupersetName);
                                         }
                                     }
                                 }
@@ -327,6 +309,87 @@ namespace Fitness_App.Classes
             }
         }
 
+        //process XML node into object array
+        private bool processNode(XmlNode sub, string routineName, string exerciseName, string supersetName)
+        {
+            bool add = false;
+            switch (sub.Name)
+            {
+                case "ExerciseName":
+                    AddRemoveexercise addEx = new AddRemoveexercise();
+                    add = addEx.Addexercise(sub.InnerText, routineName);
+                    ExerciseName = sub.InnerText;
+                    break;
+
+                case "Sets":
+                    AddRemoveexercise addSets = new AddRemoveexercise();
+                    add = addSets.UpdateSet(int.Parse(sub.InnerText), routineName, exerciseName);
+                    break;
+
+                case "Reps":
+                    List<string> reps = sub.InnerText.Split(',').ToList();
+                    for (int i = 0; i < reps.Count; i++)
+                    {
+                        int r = int.Parse(reps[i]);
+                        AddRemoveexercise addReps = new AddRemoveexercise();
+                        add = addReps.UpdateReps(r, routineName, exerciseName, i);
+                    }
+                    break;
+
+                case "Weight":
+                    List<string> weights = sub.InnerText.Split(',').ToList();
+                    for (int i = 0; i < weights.Count; i++)
+                    {
+                        int w = int.Parse(weights[i]);
+                        AddRemoveexercise addWeight = new AddRemoveexercise();
+                        add = addWeight.UpdateWeight(w, routineName, exerciseName, i);
+                    }
+                    break;
+
+                case "Superset":
+                    foreach (XmlNode ss in sub.ChildNodes)
+                    {
+                        //recursive call
+                        add = processNode(ss, RoutineName, ExerciseName, SupersetName);
+                    }
+                    break;
+
+                case "SupersetName":
+                    AddRemoveexercise addS = new AddRemoveexercise();
+                    add = addS.AddSuperset(routineName, exerciseName, sub.InnerText);
+                    SupersetName = sub.InnerText;
+                    break;
+
+                case "SupersetSets":
+                    AddRemoveexercise addSSets = new AddRemoveexercise();
+                    add = addSSets.UpdateSuperset(routineName, exerciseName, supersetName, int.Parse(sub.InnerText));
+                    break;
+
+                case "SupersetReps":
+                    List<string> ssReps = sub.InnerText.Split(',').ToList();
+                    for (int i = 0; i < ssReps.Count; i++)
+                    {
+                        int r = int.Parse(ssReps[i]);
+                        AddRemoveexercise addSSReps = new AddRemoveexercise();
+                        add = addSSReps.UpdateSupersetRW(routineName, exerciseName, supersetName, r, 0, i);
+                    }
+                    break;
+
+                case "SupersetWeight":
+                    List<string> ssWeights = sub.InnerText.Split(',').ToList();
+                    for (int i = 0; i < ssWeights.Count; i++)
+                    {
+                        int w = int.Parse(ssWeights[i]);
+                        AddRemoveexercise addSSWeight = new AddRemoveexercise();
+                        add = addSSWeight.UpdateSupersetRW(routineName, exerciseName, supersetName, 0, w, i);
+                    }
+                    break;
+            }
+
+            return add;
+        }
+
+        //see if we have offline samples to select from when in offline mode (this is normally taken from DB)
         public void getOfflineSample()
         {
             if (File.Exists(dir + @"\" + rsample))
@@ -367,6 +430,7 @@ namespace Fitness_App.Classes
             }
         }
 
+        //return comma delmited string from array
         private string getValue(List<int> list)
         {
             return string.Join(",", list.Select(x => x.ToString()).ToArray());

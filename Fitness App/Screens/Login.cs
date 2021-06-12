@@ -31,11 +31,13 @@ namespace Fitness_App
             offlineCheckBox.CheckedChanged += OfflineCheck;
         }
 
+        //see if user logging in offline mode
         private void OfflineCheck(object sender, EventArgs e)
         {
             Common.offline = offlineCheckBox.Checked;
         }
 
+        //button handlers
         private void button_Click(object sender, EventArgs e)
         {
             string name = ((Control)sender).Name;
@@ -57,6 +59,7 @@ namespace Fitness_App
             }
         }
 
+        //validate and log user in, collect data from DB if applicable
         private void logon()
         {
             string user = loginTextBox.Text;
@@ -102,7 +105,18 @@ namespace Fitness_App
                     {
                         //if no offline mode then go fetch the users data from DB
                         DataBaseRequest request = new DataBaseRequest();
-                        ok = request.GetData(Common.iduser);
+                        ok = request.GetRoutine(Common.userID);
+                        if (!ok)
+                        {
+                            MsgBox msgbox = new MsgBox();
+                            msgbox.MessageBox("Initalizing Error", request.exMess + ".", Types.OK, Icons.Error);
+                            msgbox.ShowDialog();
+                            Application.Exit();
+                        }
+
+                        //get completed workout related data
+                        request = new DataBaseRequest();
+                        ok = request.GetExerciseData(90);
                         if (!ok)
                         {
                             MsgBox msgbox = new MsgBox();
@@ -116,7 +130,7 @@ namespace Fitness_App
                     {
                         //try to update the database
                         DataBaseRequest update = new DataBaseRequest();
-                        ok = update.SetData(Common.iduser);
+                        ok = update.SaveRoutine(Common.userID);
                         if (!ok)
                         {
                             MsgBox msgbox = new MsgBox();
@@ -150,6 +164,7 @@ namespace Fitness_App
             }
         }
 
+        //allow us to move app window if mouse held down
         private void mouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -159,6 +174,7 @@ namespace Fitness_App
             }
         }
 
+        //enter button pressed process as login request
         private void Login_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Return)

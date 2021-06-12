@@ -20,11 +20,12 @@ namespace Fitness_App.Screens
             InitializeComponent();
         }
 
+        //main process to be called when utilizing screen
         public void sample(bool isWorkout)
         {
             if (isWorkout)
             {
-                infoLbl.Text = "Select Workout Name:";
+                infoLbl.Text = "Select Exercise Name:";
                 if (Common.sampleWorkout.Count <= 0) 
                 { 
                     return;
@@ -58,6 +59,7 @@ namespace Fitness_App.Screens
             }
         }
 
+        //combobox event handler
         private void sampleCB_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(sampleCB.SelectedItem != null && catageories.Contains(sampleCB.Text))
@@ -71,6 +73,7 @@ namespace Fitness_App.Screens
             }
         }
 
+        //process user request
         private void okBtn_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(selected))
@@ -84,12 +87,14 @@ namespace Fitness_App.Screens
             this.Close();
         }
 
+        //exit
         private void exitBtn_Click(object sender, EventArgs e)
         {
             selected = null;
             this.Close();
         }
 
+        //some initalizing of combobox
         private void sampleCB_DrawItem(object sender, DrawItemEventArgs e)
         {
             if(e.Index == -1) 

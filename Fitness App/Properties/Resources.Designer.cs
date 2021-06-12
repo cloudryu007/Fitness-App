@@ -73,6 +73,16 @@ namespace Fitness_App.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap arrow {
+            get {
+                object obj = ResourceManager.GetObject("arrow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap dropArrow {
             get {
                 object obj = ResourceManager.GetObject("dropArrow", resourceCulture);
@@ -126,6 +136,46 @@ namespace Fitness_App.Properties {
         internal static System.Drawing.Bitmap removeBtn {
             get {
                 object obj = ResourceManager.GetObject("removeBtn", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap saver {
+            get {
+                object obj = ResourceManager.GetObject("saver", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap sve {
+            get {
+                object obj = ResourceManager.GetObject("sve", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap sve1 {
+            get {
+                object obj = ResourceManager.GetObject("sve1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap sve2 {
+            get {
+                object obj = ResourceManager.GetObject("sve2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

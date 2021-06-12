@@ -39,14 +39,14 @@
             this.userPanel = new System.Windows.Forms.Panel();
             this.settingsButton = new System.Windows.Forms.Button();
             this.profileButton = new System.Windows.Forms.Button();
-            this.userButton = new System.Windows.Forms.Button();
             this.dateLbl = new System.Windows.Forms.Label();
             this.mainPanel = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.movePanel = new System.Windows.Forms.Panel();
             this.exitButton = new System.Windows.Forms.Label();
             this.minimizeButton = new System.Windows.Forms.Label();
             this.dataPanel = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.userButton = new System.Windows.Forms.Button();
             this.navPanel.SuspendLayout();
             this.userPanel.SuspendLayout();
             this.mainPanel.SuspendLayout();
@@ -67,7 +67,7 @@
             this.navPanel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.navPanel.Location = new System.Drawing.Point(0, 0);
             this.navPanel.Name = "navPanel";
-            this.navPanel.Size = new System.Drawing.Size(194, 577);
+            this.navPanel.Size = new System.Drawing.Size(194, 560);
             this.navPanel.TabIndex = 0;
             // 
             // helpBtn
@@ -129,7 +129,7 @@
             this.logoutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.logoutButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.logoutButton.ForeColor = System.Drawing.Color.White;
-            this.logoutButton.Location = new System.Drawing.Point(0, 534);
+            this.logoutButton.Location = new System.Drawing.Point(0, 517);
             this.logoutButton.Name = "logoutButton";
             this.logoutButton.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.logoutButton.Size = new System.Drawing.Size(194, 43);
@@ -228,6 +228,86 @@
             this.profileButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.profileButton.UseVisualStyleBackColor = false;
             // 
+            // dateLbl
+            // 
+            this.dateLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.dateLbl.AutoSize = true;
+            this.dateLbl.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(39)))), ((int)(((byte)(77)))));
+            this.dateLbl.Location = new System.Drawing.Point(628, 33);
+            this.dateLbl.Name = "dateLbl";
+            this.dateLbl.Size = new System.Drawing.Size(138, 17);
+            this.dateLbl.TabIndex = 1;
+            this.dateLbl.Text = "Wednesday , June 12";
+            // 
+            // mainPanel
+            // 
+            this.mainPanel.BackColor = System.Drawing.Color.White;
+            this.mainPanel.Controls.Add(this.panel1);
+            this.mainPanel.Controls.Add(this.userPanel);
+            this.mainPanel.Controls.Add(this.movePanel);
+            this.mainPanel.Controls.Add(this.dataPanel);
+            this.mainPanel.Controls.Add(this.dateLbl);
+            this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainPanel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mainPanel.Location = new System.Drawing.Point(194, 0);
+            this.mainPanel.Name = "mainPanel";
+            this.mainPanel.Size = new System.Drawing.Size(814, 560);
+            this.mainPanel.TabIndex = 2;
+            // 
+            // panel1
+            // 
+            this.panel1.Location = new System.Drawing.Point(0, 61);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(932, 2);
+            this.panel1.TabIndex = 0;
+            // 
+            // movePanel
+            // 
+            this.movePanel.BackColor = System.Drawing.Color.White;
+            this.movePanel.Controls.Add(this.exitButton);
+            this.movePanel.Controls.Add(this.minimizeButton);
+            this.movePanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.movePanel.Location = new System.Drawing.Point(0, 0);
+            this.movePanel.Name = "movePanel";
+            this.movePanel.Size = new System.Drawing.Size(814, 24);
+            this.movePanel.TabIndex = 2;
+            // 
+            // exitButton
+            // 
+            this.exitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.exitButton.AutoSize = true;
+            this.exitButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exitButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(39)))), ((int)(((byte)(77)))));
+            this.exitButton.Location = new System.Drawing.Point(793, 3);
+            this.exitButton.Name = "exitButton";
+            this.exitButton.Size = new System.Drawing.Size(17, 17);
+            this.exitButton.TabIndex = 8;
+            this.exitButton.Text = "X";
+            this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
+            // 
+            // minimizeButton
+            // 
+            this.minimizeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.minimizeButton.AutoSize = true;
+            this.minimizeButton.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.minimizeButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(39)))), ((int)(((byte)(77)))));
+            this.minimizeButton.Location = new System.Drawing.Point(769, 1);
+            this.minimizeButton.Name = "minimizeButton";
+            this.minimizeButton.Size = new System.Drawing.Size(15, 20);
+            this.minimizeButton.TabIndex = 9;
+            this.minimizeButton.Text = "-";
+            // 
+            // dataPanel
+            // 
+            this.dataPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataPanel.Location = new System.Drawing.Point(0, 65);
+            this.dataPanel.Name = "dataPanel";
+            this.dataPanel.Size = new System.Drawing.Size(814, 495);
+            this.dataPanel.TabIndex = 3;
+            // 
             // userButton
             // 
             this.userButton.BackColor = System.Drawing.Color.White;
@@ -246,91 +326,11 @@
             this.userButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.userButton.UseVisualStyleBackColor = false;
             // 
-            // dateLbl
-            // 
-            this.dateLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.dateLbl.AutoSize = true;
-            this.dateLbl.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(39)))), ((int)(((byte)(77)))));
-            this.dateLbl.Location = new System.Drawing.Point(612, 33);
-            this.dateLbl.Name = "dateLbl";
-            this.dateLbl.Size = new System.Drawing.Size(138, 17);
-            this.dateLbl.TabIndex = 1;
-            this.dateLbl.Text = "Wednesday , June 12";
-            // 
-            // mainPanel
-            // 
-            this.mainPanel.BackColor = System.Drawing.Color.White;
-            this.mainPanel.Controls.Add(this.panel1);
-            this.mainPanel.Controls.Add(this.userPanel);
-            this.mainPanel.Controls.Add(this.movePanel);
-            this.mainPanel.Controls.Add(this.dataPanel);
-            this.mainPanel.Controls.Add(this.dateLbl);
-            this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainPanel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mainPanel.Location = new System.Drawing.Point(194, 0);
-            this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(798, 577);
-            this.mainPanel.TabIndex = 2;
-            // 
-            // movePanel
-            // 
-            this.movePanel.BackColor = System.Drawing.Color.White;
-            this.movePanel.Controls.Add(this.exitButton);
-            this.movePanel.Controls.Add(this.minimizeButton);
-            this.movePanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.movePanel.Location = new System.Drawing.Point(0, 0);
-            this.movePanel.Name = "movePanel";
-            this.movePanel.Size = new System.Drawing.Size(798, 24);
-            this.movePanel.TabIndex = 2;
-            // 
-            // exitButton
-            // 
-            this.exitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.exitButton.AutoSize = true;
-            this.exitButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.exitButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(39)))), ((int)(((byte)(77)))));
-            this.exitButton.Location = new System.Drawing.Point(777, 3);
-            this.exitButton.Name = "exitButton";
-            this.exitButton.Size = new System.Drawing.Size(17, 17);
-            this.exitButton.TabIndex = 8;
-            this.exitButton.Text = "X";
-            this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
-            // 
-            // minimizeButton
-            // 
-            this.minimizeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.minimizeButton.AutoSize = true;
-            this.minimizeButton.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.minimizeButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(39)))), ((int)(((byte)(77)))));
-            this.minimizeButton.Location = new System.Drawing.Point(753, 1);
-            this.minimizeButton.Name = "minimizeButton";
-            this.minimizeButton.Size = new System.Drawing.Size(15, 20);
-            this.minimizeButton.TabIndex = 9;
-            this.minimizeButton.Text = "-";
-            // 
-            // dataPanel
-            // 
-            this.dataPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataPanel.Location = new System.Drawing.Point(0, 65);
-            this.dataPanel.Name = "dataPanel";
-            this.dataPanel.Size = new System.Drawing.Size(798, 512);
-            this.dataPanel.TabIndex = 3;
-            // 
-            // panel1
-            // 
-            this.panel1.Location = new System.Drawing.Point(0, 61);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(798, 2);
-            this.panel1.TabIndex = 0;
-            // 
             // Dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(992, 577);
+            this.ClientSize = new System.Drawing.Size(1008, 560);
             this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.navPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

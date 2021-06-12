@@ -25,6 +25,7 @@ namespace Fitness_App.Screens
             InitializeComponent();
         }
 
+        //onload event
         private void InputDialog_Load(object sender, EventArgs e)
         {
             this.Text = "Input Request";
@@ -45,6 +46,7 @@ namespace Fitness_App.Screens
             }
         }
 
+        //handle user request
         private void okBtn_Click(object sender, EventArgs e)
         {
             string text = inputTextBox.Text;
@@ -89,11 +91,13 @@ namespace Fitness_App.Screens
             }
         }
 
+        //clear event
         private void clearBtn_Click(object sender, EventArgs e)
         {
             inputTextBox.Clear();
         }
 
+        //if user selects samples, display accordingly (exercise, or routines)
         private void sampleBtn_Click(object sender, EventArgs e)
         {
             Samples sample = new Samples();
@@ -105,6 +109,7 @@ namespace Fitness_App.Screens
             }
         }
 
+        //disable sample if offline mode and no offline data found for samples
         private void disableSample()
         {
             sampleBtn.Enabled = false;

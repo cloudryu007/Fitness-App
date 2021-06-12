@@ -26,12 +26,12 @@ namespace Fitness_App.Screens
             InitializeComponent();
         }
 
+        //setup buttons based off user requested type
         public void MessageBox(string title, string message, Types type, Icons icon)
         {
             this.Text = title;
             messageText.Text = message;
 
-            //setup buttons based off user requested type
             switch (type)
             {
                 case Types.Yes:

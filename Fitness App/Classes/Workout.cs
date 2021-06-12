@@ -7,15 +7,26 @@ using System.Threading.Tasks;
 
 namespace Fitness_App.Classes
 {
-    //must set these to lists (sets, reps, weight)
+    //workout object
     public class Workout
     {
         public string exerciseName { get; set; }
         public int sets { get; set; }
         public List<int> reps { get; set; } = new List<int>();
         public List<int> weight { get; set; } = new List<int>();
+        public List<Superset> supersets { get; set; } = new List<Superset>();
     }
 
+    //superset object
+    public class Superset
+    {
+        public string supersetName { get; set; }
+        public int sets { get; set; }
+        public List<int> reps { get; set; } = new List<int>();
+        public List<int> weight { get; set; } = new List<int>();
+    }
+
+    //all workouts go into userworkout 
     public class UserWorkout
     {
         public string routine { get; set; }
@@ -181,6 +192,7 @@ namespace Fitness_App.Classes
 
                             if (Common.userWorkouts[index].workout[find].sets == oldNum)
                             {
+
                                 break;
                             }
                         }
@@ -226,7 +238,7 @@ namespace Fitness_App.Classes
         }
 
         //when the user initally selects a number of sets, initalize the reps/weights
-        public bool initWorkout(string routineName, string workoutName, int sets)
+        public bool InitWorkout(string routineName, string workoutName, int sets)
         {
             int index = Common.userWorkouts.FindIndex(x => x.routine == routineName);
             if (index > -1)
@@ -257,6 +269,208 @@ namespace Fitness_App.Classes
                     }
 
                     return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool AddSuperset(string routineName, string exerciseName, string supersetName)
+        {
+            int index = Common.userWorkouts.FindIndex(x => x.routine == routineName);
+            if (index > -1)
+            {
+                int pos = Common.userWorkouts[index].workout.FindIndex(y => y.exerciseName == exerciseName);
+                if (pos > -1)
+                {
+                    if (Common.userWorkouts[index].workout[pos].supersets.Count > 0)
+                    {
+                        int find = Common.userWorkouts[index].workout[pos].supersets.FindIndex(z => z.supersetName == supersetName);
+                        if(find == -1)
+                        {
+                            Superset super = new Superset();
+                            super.supersetName = supersetName;
+                            Common.userWorkouts[index].workout[pos].supersets.Add(super);
+                            return true;
+                        }
+                    }
+
+                    else
+                    {
+                        Superset super = new Superset();
+                        super.supersetName = supersetName;
+                        Common.userWorkouts[index].workout[pos].supersets.Add(super);
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public bool RemoveSuperset(string routineName, string exerciseName, string supersetName)
+        {
+            int index = Common.userWorkouts.FindIndex(x => x.routine == routineName);
+            if (index > -1)
+            {
+                int pos = Common.userWorkouts[index].workout.FindIndex(y => y.exerciseName == exerciseName);
+                if (pos > -1)
+                {
+                    int find = Common.userWorkouts[index].workout[pos].supersets.FindIndex(z => z.supersetName == supersetName);
+                    if (find > -1)
+                    {
+                        Common.userWorkouts[index].workout[pos].supersets.RemoveAt(find);
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public bool ModifySuperset(string routineName, string exerciseName, string oldName, string newName)
+        {
+            int index = Common.userWorkouts.FindIndex(x => x.routine == routineName);
+            if (index > -1)
+            {
+                int find = Common.userWorkouts[index].workout.FindIndex(x => x.exerciseName == exerciseName);
+                if (find > -1)
+                {
+                    int pos = Common.userWorkouts[index].workout[find].supersets.FindIndex(z => z.supersetName == oldName);
+                    if (pos > -1)
+                    {
+                        Common.userWorkouts[index].workout[find].supersets[pos].supersetName = newName;
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public bool UpdateSuperset(string routineName, string exerciseName, string supersetName, int sets)
+        {
+            int index = Common.userWorkouts.FindIndex(x => x.routine == routineName);
+            if (index > -1)
+            {
+                int pos = Common.userWorkouts[index].workout.FindIndex(y => y.exerciseName == exerciseName);
+                if (pos > -1)
+                {
+                    int find = Common.userWorkouts[index].workout[pos].supersets.FindIndex(z => z.supersetName == supersetName);
+                    if (find > -1)
+                    {
+                        if (sets > 0)
+                        {
+                            int oldNum = Common.userWorkouts[index].workout[pos].supersets[find].sets;
+                            Common.userWorkouts[index].workout[pos].supersets[find].sets = sets;
+
+                            //remove sets, reps, weight from our array
+                            if (oldNum > sets)
+                            {
+                                while (sets != oldNum)
+                                {
+                                    oldNum -= 1;
+                                    Common.userWorkouts[index].workout[pos].supersets[find].reps.RemoveAt(Common.userWorkouts[index].workout[pos].supersets[find].reps.Count - 1);
+                                    Common.userWorkouts[index].workout[pos].supersets[find].weight.RemoveAt(Common.userWorkouts[index].workout[pos].supersets[find].weight.Count - 1);
+
+                                    if (Common.userWorkouts[index].workout[pos].supersets[find].sets == oldNum)
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+
+                            //add sets, reps, weight to our array
+                            else
+                            {
+                                while (sets != oldNum)
+                                {
+                                    oldNum += 1;
+                                    Common.userWorkouts[index].workout[pos].supersets[find].reps.Add(0);
+                                    Common.userWorkouts[index].workout[pos].supersets[find].weight.Add(0);
+
+                                    if (Common.userWorkouts[index].workout[pos].supersets[find].sets == oldNum)
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        //update superset reps or weight
+        public bool UpdateSupersetRW(string routineName, string exerciseName, string supersetName, int rep, int weight, int row)
+        {
+            int index = Common.userWorkouts.FindIndex(x => x.routine == routineName);
+            if (index > -1)
+            {
+                int find = Common.userWorkouts[index].workout.FindIndex(x => x.exerciseName == exerciseName);
+                if (find > -1)
+                {
+                    int pos = Common.userWorkouts[index].workout[find].supersets.FindIndex(z => z.supersetName == supersetName);
+                    if (pos > -1)
+                    {
+                        if (rep > 0)
+                        {
+                            Common.userWorkouts[index].workout[find].supersets[pos].reps[row] = rep;
+                            return true;
+                        }
+
+                        else if(weight > 0)
+                        {
+                            Common.userWorkouts[index].workout[find].supersets[pos].weight[row] = weight;
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        //when the user initally selects a number of sets, initalize the reps/weights
+        public bool InitSuperset(string routineName, string workoutName, string superset, int sets)
+        {
+            int index = Common.userWorkouts.FindIndex(x => x.routine == routineName);
+            if (index > -1)
+            {
+                int find = Common.userWorkouts[index].workout.FindIndex(x => x.exerciseName == workoutName);
+                if (find > -1)
+                {
+                    int pos = Common.userWorkouts[index].workout[find].supersets.FindIndex(x => x.supersetName == superset);
+                    if (pos > -1)
+                    {
+                        Common.userWorkouts[index].workout[find].supersets[pos].sets = sets;
+                        int r = Common.userWorkouts[index].workout[find].supersets[pos].reps.Count;
+                        int w = Common.userWorkouts[index].workout[find].supersets[pos].weight.Count;
+
+                        //check to see if we really need to init reps
+                        if (Common.userWorkouts[index].workout[find].supersets[pos].reps.Count != sets)
+                        {
+                            for (int i = r; i < sets; i++)
+                            {
+                                Common.userWorkouts[index].workout[find].supersets[pos].reps.Add(0);
+                            }
+                        }
+
+                        //check to see if we really need to init weights
+                        if (Common.userWorkouts[index].workout[find].supersets[pos].weight.Count != sets)
+                        {
+                            for (int i = w; i < sets; i++)
+                            {
+                                Common.userWorkouts[index].workout[find].supersets[pos].weight.Add(0);
+                            }
+                        }
+
+                        return true;
+                    }
                 }
             }
 

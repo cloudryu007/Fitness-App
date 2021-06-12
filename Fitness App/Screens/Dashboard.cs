@@ -35,20 +35,17 @@ namespace Fitness_App.Screens
             if (Common.Metric == "US") Common.weight = "lb"; else Common.weight = "kg";
 
             //setup user info
+            userButton.Text = "Anonymous";
             if (!string.IsNullOrEmpty(Common.firstName))
             {
                 userButton.Text = Common.firstName + " " + Common.lastName;
-            }
-
-            else
-            {
-                userButton.Text = "Anonymous";
             }
 
             //setup dash
             setData();
         }
 
+        //button click event handler
         private void button_Click(object sender, EventArgs e)
         {
             bool setCollapse = false;
@@ -77,6 +74,7 @@ namespace Fitness_App.Screens
                     break;
             }
 
+            //collapse or expand user profile panel
             if (setCollapse)
             {
                 if(userPanel.Size == userPanel.MaximumSize)
@@ -93,6 +91,7 @@ namespace Fitness_App.Screens
             }
         }
 
+        //open form on to dash
         private void openForm(Form form)
         {
             if(Common.activeForm != null)
@@ -119,6 +118,7 @@ namespace Fitness_App.Screens
             form.Show();
         }
 
+        //create some inital borders for us
         private void setData()
         {
             Panel border = new Panel();
@@ -143,6 +143,7 @@ namespace Fitness_App.Screens
             }
         }
 
+        //allow us to move app window when mouse held down
         private void mouse_Down(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -152,6 +153,7 @@ namespace Fitness_App.Screens
             }
         }
 
+        //exit app
         private void exitButton_Click(object sender, EventArgs e)
         {
             MsgBox msgbox = new MsgBox();
@@ -168,12 +170,13 @@ namespace Fitness_App.Screens
             }
         }
 
+        //on close event handler
         private void Dashboard_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (exit)
             {
                 DataBaseRequest update = new DataBaseRequest();
-                bool ok = update.SetData(Common.iduser);
+                bool ok = update.SaveRoutine(Common.userID);
                 if (!ok)
                 {
                     MessageBox.Show("Error updating online profile, going into offline mode.", "Profile Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
